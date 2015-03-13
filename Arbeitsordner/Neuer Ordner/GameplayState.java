@@ -36,10 +36,10 @@ import eea.engine.event.basicevents.LoopEvent;
 import eea.engine.interfaces.IDestructible;
 
 /**
- * @author Timo Baehr, Peter Klï¿½ckner
+ * @author Namen hier einfuegen ;)
  * 
- *         Diese Klasse repraesentiert das Spielfenster, indem ein Wassertropfen
- *         erscheint und nach unten faellt.
+ *         Diese Klasse repraesentiert das Spielfenster, indem sich 2 Gorillas auf jeweils einem
+ *         Hochaus mit Bananen abwerfen.
  */
 public class GameplayState extends BasicTWLGameState {
 
@@ -64,10 +64,8 @@ public class GameplayState extends BasicTWLGameState {
 			throws SlickException {
 
 		// Hintergrund laden
-		Entity background = new Entity("background"); // Entitaet fuer
-														// Hintergrund
-		background.setPosition(new Vector2f(400, 300)); // Startposition des
-														// Hintergrunds
+		Entity background = new Entity("background"); // Entitaet fuer den Hintergrund
+		background.setPosition(new Vector2f(400, 300)); // Startposition des Hintergrunds
 		background.addComponent(new ImageRenderComponent(new Image(
 				"/assets/gorillas/background.png"))); // Bildkomponente
 
@@ -83,13 +81,13 @@ public class GameplayState extends BasicTWLGameState {
 
 
 		int widthcounter = 0;
-		int counter;
-		counter = 1;
+		int counter = 1;
 		while ( 10 > counter) {
 		    Random rand1 = new Random();
-		    int min1 = 50;
-			int max1 = 100;
+		    int min1 = 25;
+			int max1 = 44;
 			int randomwidth = rand1.nextInt((max1 - min1) + 1) + min1;
+			randomwidth = randomwidth * 2;
 			
 		    Random rand2 = new Random();
 		    int min2 = 100;
@@ -115,28 +113,27 @@ public class GameplayState extends BasicTWLGameState {
 			
 			widthcounter = randomwidth + widthcounter;
 			
-		// erstelle ein Bild der Breite 500 und der Hï¿½he 200
+		// erstelle ein Bild der Breite 500 und der Hoehe 200
 		BufferedImage image = new BufferedImage(randomwidth, randomheight,
 				BufferedImage.TYPE_INT_ARGB);
-		// mit Graphics2D lï¿½sst sich das Bild bemalen
+		// mit Graphics2D laesst sich das Bild bemalen
 		Graphics2D graphic = image.createGraphics();
-		// die folgende Zeile bewirkt, dass sich auch wieder "ausradieren" lï¿½sst
+		// die folgende Zeile bewirkt, dass sich auch wieder "ausradieren" laesst
 		graphic.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC));
-		// bemale das vollstï¿½ndige Bild weiï¿½
+		// bemale das vollstaendige Bild mit einer zufalls generierten Farbe
 		graphic.setColor(new Color(randomred, randomgreen, randomblue));
-		graphic.fillRect(0, 0, 800, 200);
+		graphic.fillRect(0, 0, randomwidth, randomheight);
 
 		// erstelle eine DestructibleImageEntity mit dem gerade gemalten Bild
-		// als Image, das durch das Zerstï¿½rungs-Pattern destruction.png zerstï¿½rt
+		// als Image, das durch das Zerstoerungs-Pattern destruction.png zerstoert
 		// werden kann
 		DestructibleImageEntity obstacle = new DestructibleImageEntity(
 				"obstacle", image, "gorillas/destruction.png", false);
-		obstacle.setPosition(new Vector2f(game.getContainer().getWidth() - widthcounter,
-				game.getContainer().getHeight() * 0));
+		obstacle.setPosition(new Vector2f(game.getContainer().getWidth() - (widthcounter - (randomwidth / 2)),
+				game.getContainer().getHeight() - (randomheight / 2)));
 
 		entityManager.addEntity(stateID, obstacle);
 		counter++;
-
 		}
 	}
 
@@ -167,7 +164,7 @@ public class GameplayState extends BasicTWLGameState {
 
 	/**
 	 * In dieser Methode werden in einem BasicTWLGameSate alle GUI-Elemente dem
-	 * GameState mit Hilfe einer RootPane hinzugefï¿½gt
+	 * GameState mit Hilfe einer RootPane hinzugefuegt
 	 */
 	@Override
 	protected RootPane createRootPane() {
@@ -180,7 +177,7 @@ public class GameplayState extends BasicTWLGameState {
 		// erstelle ein EditField. Es dient der Eingabe von Text
 		xInput = new EditField();
 		// mit der Methode addCallBack lï¿½sst sich dem EditField ein CallBack
-		// hinzufï¿½gen, in dessen Methode callback(int key) bestimmt wird, was
+		// hinzufuegen, in dessen Methode callback(int key) bestimmt wird, was
 		// geschehen soll, wenn ein Zeichen eingegeben wird
 		xInput.addCallback(new Callback() {
 			public void callback(int key) {
@@ -192,8 +189,7 @@ public class GameplayState extends BasicTWLGameState {
 			}
 		});
 
-		// analog zu einer Eingabemï¿½glichkeit fï¿½r x-Werte wird auch eine fï¿½r
-		// y-Werte kreiert
+		// analog zu einer Eingabemïoeglichkeit fuer x-Werte wird auch eine fuer y-Werte kreiert
 		yLabel = new Label("y:");
 		yInput = new EditField();
 		yInput.addCallback(new Callback() {
@@ -202,12 +198,12 @@ public class GameplayState extends BasicTWLGameState {
 			}
 		});
 
-		// zuletzt wird noch ein Button hinzugefï¿½gt
+		// zuletzt wird noch ein Button hinzugefuegt
 		dropButton = new Button("drop");
-		// ï¿½hnlich wie einem EditField kann auch einem Button ein CallBack
-		// hinzugefï¿½gt werden
+		// Aehnlich wie einem EditField kann auch einem Button ein CallBack
+		// hinzugefuegt werden
 		// Hier ist es jedoch von Typ Runnable, da keine Parameter (z. B. welche
-		// Taste wurde gedrï¿½ckt) benï¿½tigt werden
+		// Taste wurde gedrï¿½ckt) benoetigt werden
 		dropButton.addCallback(new Runnable() {
 			@Override
 			public void run() {
