@@ -25,7 +25,7 @@ public class Gorillas extends TWLStateBasedGame {
 	public static final int HIGHSCORESTATE = 3;
 	public static final int OPTIONSTATE = 4;
 	public static final int INSTRUCTIONSSTATE = 5;
-
+dasdads
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 600;
 
@@ -77,20 +77,6 @@ public class Gorillas extends TWLStateBasedGame {
 	}
 
 	@Override
-	public void initStatesList(GameContainer gameContainer)
-			throws SlickException {
-
-		// Add states to the StateBasedGame
-		this.addState(new MainMenuState(MAINMENUSTATE));
-		// TODO: Add the other states...
-
-		// Add states to the StateBasedEntityManager
-		StateBasedEntityManager.getInstance().addState(MAINMENUSTATE);
-		// TODO: Add the other states...
-	}
-
-	@Override
-	protected URL getThemeURL() {
-		return getClass().getResource("/theme.xml");
+dsad
 	}
 }
